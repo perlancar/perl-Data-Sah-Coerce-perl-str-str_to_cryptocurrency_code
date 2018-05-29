@@ -29,8 +29,8 @@ sub coerce {
         "",
         "do { my \$cat = CryptoCurrency::Catalog->new; ",
         "my \$rec; eval { \$rec = \$cat->by_code($dt) }; if (\$@) { eval { \$rec = \$cat->by_name($dt) } } if (\$@) { eval { \$rec = \$cat->by_safename($dt) } } ",
-        "if ($@) { die 'Unknown cryptocurrency code/name/safename: ' . $dt } ",
-        "\$rec->code }",
+        "if (\$@) { die 'Unknown cryptocurrency code/name/safename: ' . $dt } ",
+        "\$rec->{code} }",
     );
 
     $res;
