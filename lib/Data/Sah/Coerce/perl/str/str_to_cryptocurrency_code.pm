@@ -9,9 +9,9 @@ use warnings;
 
 sub meta {
     +{
-        v => 2,
+        v => 3,
         enable_by_default => 0,
-        might_die => 1,
+        might_fail => 1,
         prio => 50,
     };
 }
@@ -29,8 +29,8 @@ sub coerce {
         "",
         "do { my \$cat = CryptoCurrency::Catalog->new; ",
         "my \$rec; eval { \$rec = \$cat->by_code($dt) }; if (\$@) { eval { \$rec = \$cat->by_name($dt) } } if (\$@) { eval { \$rec = \$cat->by_safename($dt) } } ",
-        "if (\$@) { die 'Unknown cryptocurrency code/name/safename: ' . $dt } ",
-        "\$rec->{code} }",
+        "if (\$@) { ['Unknown cryptocurrency code/name/safename'] } else { [undef, \$rec->{code}] } ",
+        "}",
     );
 
     $res;
